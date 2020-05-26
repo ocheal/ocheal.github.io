@@ -1,0 +1,26 @@
+.h-underline {
+    border: 2px solid transparent;
+    text-decoration: none;
+}
+
+.h-underline:hover {
+    border-bottom: 2px solid black;
+}
+
+.h-pointer:hover {
+    cursor: pointer;
+}
+
+/* "Clearfix"
+float elements do not contribute height to their parents
+this "hack" fixes that, such that height: auto can be 
+used with float elements */
+.group::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.hidden {
+    display: none !important;
+}

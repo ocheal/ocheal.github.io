@@ -1,14 +1,32 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/bebas" type="text/css"/> 
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/projects/boids/css/boids.css">
     </head>
-	<body style="margin: 0; padding: 0;">
-		<div id="sliders">
-			<div class="slider-item">
-				<p>Number of Boids:</p>
-				<p class="slider-display" id="boid-number-value">200</p>
-				<div class="range-input">
-					<input type="range" class="slider" id="boid-number" 
+	<body>
+		<div class="button" id="info-button"></div>
+		<div id="info">
+			<h3><p style='text-decoration: underline'>Boids </p></h3>
+<p>Boids, initially created by <a href="https://www.red3d.com/cwr/boids/">Craig Reynolds</a> are an example of <em>emergent behaviour</em>; individuals following simple rules act as a whole. Initially created to mimic the behaviour seen by flocks of birds or schools of fish they are defined by 3 behaviours named: separation, cohesion and alignment.</p>
+<p><strong>Separation</strong> - <em>Individuals separate from nearby neighbours, so as not to collide</em><br>
+A force moving an individual away from its neighbours. Larger for closer neighbours.</p>
+<p><strong>Cohesion</strong> - <em>Groups of individuals stay together</em><br>
+A force moving an individual to the average position of it's neighbours.</p>
+<p><strong>Alignment</strong> - <em>Groups of individuals move in the same direction</em><br>
+A force moving an individual towards the average velocity of it's neighbours.</p>
+<p>The contribution of each of these behaviours can be adjused with the adjacent sliders.</p>
+<p><a href="https://github.com/ocheal/website/tree/master/website/projects/boids">view source on github</a></p>
+
+		</div>
+		<div class="button" id="controls-button"></div>
+		<table id="sliders">
+			<tr>
+				<td>Number of Boids:</td>
+				<td class="slider-display" id="boid-number-value">200</td>
+				<td class="slider">
+					<input type="range" class="range-input" id="boid-number" 
 						   min="0" max="500" value="200" step="10"
 						   oninput="add_remove_boids(this.value)">
 					<div class="slider-ticks">
@@ -16,14 +34,14 @@
 						<option>250</option>
 						<option>500</option>
 					</div>
-				</div>
-			</div>
+				</td>
+			</tr>
 			
-			<div class="slider-item">
-				<p>Separation Weight:</p>
-				<p class="slider-display" id="separation-weight-value">1.</p>
-				<div class="range-input">
-					<input type="range" class="slider" id="separation-weight" 
+			<tr>
+				<td>Separation Weight:</td>
+				<td class="slider-display" id="separation-weight-value">1.</td>
+				<td class="slider">
+					<input type="range" class="range-input" id="separation-weight" 
 						   min="-1" max="2" value="1" step="0.05" 
 						   oninput="slider_input('separation', 'weight', this.value)">
 					<div class="slider-ticks">
@@ -32,13 +50,13 @@
 						<option>1</option>
 						<option>2</option>
 					</div>
-				</div>
-			</div>
-			<div class="slider-item">
-				<p>Separation Radius:</p>
-				<p class="slider-display" id="separation-radius-value">0.5</p>
-				<div class="range-input">
-					<input type="range" class="slider" id="separation-radius" 
+				</td>
+			</tr>
+			<tr>
+				<td>Separation Radius:</td>
+				<td class="slider-display" id="separation-radius-value">0.5</td>
+				<td class="slider">
+					<input type="range" class="range-input" id="separation-radius" 
 					       min="0" max="1" value="0.5" step="0.01"
 						   oninput="slider_input('separation', 'radius', this.value)">
 					<div class="slider-ticks">
@@ -46,14 +64,14 @@
 						<option>0.5</option>
 						<option>1</option>
 					</div>
-				</div>
-			</div>
+				</td>
+			</tr>
 			
-			<div class="slider-item">
-				<p>Cohesion Weight:</p>
-				<p class="slider-display" id="cohesion-weight-value">1.</p>
-				<div class="range-input">
-					<input type="range" class="slider" id="cohesion-weight" 
+			<tr>
+				<td>Cohesion Weight:</td>
+				<td class="slider-display" id="cohesion-weight-value">1.</td>
+				<td class="slider">
+					<input type="range" class="range-input" id="cohesion-weight" 
 						   min="-1" max="2" value="1" step="0.05" 
 						   oninput="slider_input('cohesion', 'weight', this.value)">
 					<div class="slider-ticks">
@@ -62,13 +80,13 @@
 						<option>1</option>
 						<option>2</option>
 					</div>
-				</div>
-			</div>
-			<div class="slider-item">
-				<p>Cohesion Radius:</p>
-				<p class="slider-display" id="cohesion-radius-value">0.5</p>
-				<div class="range-input">
-					<input type="range" class="slider" id="cohesion-radius" 
+				</td>
+			</tr>
+			<tr>
+				<td>Cohesion Radius:</td>
+				<td class="slider-display" id="cohesion-radius-value">0.5</td>
+				<td class="slider">
+					<input type="range" class="range-input" id="cohesion-radius" 
 					       min="0" max="1" value="0.5" step="0.01"
 						   oninput="slider_input('cohesion', 'radius', this.value)">
 					<div class="slider-ticks">
@@ -76,14 +94,14 @@
 						<option>0.5</option>
 						<option>1</option>
 					</div>
-				</div>
-			</div>
+				</td>
+			</tr>
 			
-			<div class="slider-item">
-				<p>Alignment Weight:</p>
-				<p class="slider-display" id="alignment-weight-value">1.</p>
-				<div class="range-input">
-					<input type="range" class="slider" id="alignment-weight" 
+			<tr>
+				<td>Alignment Weight:</td>
+				<td class="slider-display" id="alignment-weight-value">1.</td>
+				<td class="slider">
+					<input type="range" class="range-input" id="alignment-weight" 
 						   min="-1" max="2" value="1" step="0.05" 
 						   oninput="slider_input('alignment', 'weight', this.value)">
 					<div class="slider-ticks">
@@ -92,13 +110,13 @@
 						<option>1</option>
 						<option>2</option>
 					</div>
-				</div>
-			</div>
-			<div class="slider-item">
-				<p>Alignment Radius:</p>
-				<p class="slider-display" id="alignment-radius-value">0.5</p>
-				<div class="range-input">
-					<input type="range" class="slider" id="alignment-radius" 
+				</td>
+			</tr>
+			<tr>
+				<td>Alignment Radius:</td>
+				<td class="slider-display" id="alignment-radius-value">0.5</td>
+				<td class="slider">
+					<input type="range" class="range-input" id="alignment-radius" 
 					       min="0" max="1" value="0.5" step="0.01"
 						   oninput="slider_input('alignment', 'radius', this.value)">
 					<div class="slider-ticks">
@@ -106,14 +124,14 @@
 						<option>0.5</option>
 						<option>1</option>
 					</div>
-				</div>
-			</div>
+				</td>
+			</tr>
 			
-			<div class="slider-item">
-				<p>Mouse Attraction:</p>
-				<p class="slider-display" id="mouse-weight-value">0.5</p>
-				<div class="range-input">
-					<input type="range" class="slider" id="mouse-weight" 
+			<tr>
+				<td>Mouse Attraction:</td>
+				<td class="slider-display" id="mouse-weight-value">0.5</td>
+				<td class="slider">
+					<input type="range" class="range-input" id="mouse-weight" 
 						   min="-1" max="2" value="1" step="0.05"
 						   oninput="slider_input('mouse', 'weight', this.value)">
 					<div class="slider-ticks">
@@ -122,9 +140,10 @@
 						<option>1</option>
 						<option>2</option>
 					</div>
-				</div>
-			</div>
-		</div>
+				</td>
+			</tr>
+		</table>
+		<a class="h-pointer" href="/" id="initials">OC</a>
 		<script src="/projects/boids/javascript/vector2d.js"></script>
 		<script src="/projects/boids/javascript/boids.js"></script>
         <script>
@@ -164,7 +183,10 @@
 				}
 			}
 			
-			function slider_display(id, value) {
+			function slider_display(id, value, percent=true) {
+				if (percent) {
+					value = Math.round(100*value)+"%";
+				}
 				document.getElementById(`${id}-value`).innerHTML = value;
 			}
 
@@ -186,14 +208,14 @@
 				while (value < boids.boids.length) {
 					boids.boids.pop();
 				}
-				slider_display("boid-number", value)
+				slider_display("boid-number", value, false)
 			}
 			
 			// Slider Initial Values
-			function slider_init(id, value)  {
+			function slider_init(id, value, percent=true)  {
 				let slider = document.getElementById(id);
 				slider.value = value;
-				slider_display(id, value);
+				slider_display(id, value, percent);
 			}
 			(() => {
 				let reference_boid = boids.boids[0];
@@ -202,8 +224,32 @@
 					slider_init(`${behaviour}-radius`, reference_boid.forces[behaviour].radius);
 				}
 				slider_init('mouse-weight', reference_boid.forces["mouse"].weight);
-				slider_init('boid-number', boids.boids.length);
+				slider_init('boid-number', boids.boids.length, false);
 			})();
+		</script>
+		<script>
+			
+			function class_add_remove(element_id, klass, add=true) {
+				let element = document.getElementById(element_id);
+				let is_active = !add;
+				return () => {
+					if (is_active) {
+						element.classList.remove(klass)
+					}
+					else {
+						element.classList.add(klass)
+					}
+					is_active = !is_active;
+				}
+			}
+			
+			var info_button = document.getElementById("info-button");
+			var controls_button = document.getElementById("controls-button");
+
+			info_button.addEventListener("click", class_add_remove("info", "hidden"));
+			info_button.addEventListener("click", class_add_remove("info-button", "hidden"));
+			controls_button.addEventListener("click", class_add_remove("sliders", "hidden"));
+			controls_button.addEventListener("click", class_add_remove("controls-button", "hidden"));
 		</script>
     </body>
 </html>

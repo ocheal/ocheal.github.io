@@ -1,4 +1,6 @@
 @import "keyframes.css";
+@import "fonts.css";
+@import "utils.css";
 
 * {
     margin: 0;
@@ -10,17 +12,9 @@
 }
 
 /* -- util -- */
-body {
-    scroll-behavior: smooth;
-}
-
-.center-gradient-rule {
-    height: 1px;
-    border: 0;
-    width: 70%;
-    transform: translateX(20%);
-    justify-content: center;
-    background: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+a {
+    text-decoration: none;
+    color: black;
 }
 
 .title {
@@ -28,117 +22,194 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    font-size: 100px;
+    font-size: 80px;
     font-family: var(--title-font);
     animation: fade-in ease 2s;
 }
 
-.perspective {
-    width: 100vw;
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .title {font-size: 100px}
+}
+
+.no-scroll { 
+    overflow: hidden;
     height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    perspective: 300px;
-    transform-style: preserve-3d;
-    scroll-behavior: inherit;
 }
 
 .slow-scroll {
     height: inherit;
-    transform: translateZ(-300px) scale(2);
 }
 
-/* -- nav -- */
-
-.nav {
-    position: fixed;
-    left: 1em;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 100;
-}
-.nav li {
-    list-style: none;
-    margin: .5em;
-    display: block;
-}
-.nav a, .nav i {
-    text-decoration: none;
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .perspective {
+        width: 100vw;
+        height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scroll-behavior: inherit;
+        perspective: 300px;
+        transform-style: preserve-3d;
+    }
+    .slow-scroll {
+        transform: translateZ(-300px) scale(2);
+    }
 }
 
-.nav-arrow {
-    position: absolute;
-    text-decoration: none;
-    color: black;
-    left: 1em;
-    top: 100%;
-    padding: 1em 0em;
-    transform: translateY(-100%);
-    transition: transform 0.5s;
-}
-
-.nav-arrow:hover {
-    transform: translateY(-100%) scale(1.25);
-}
-
-.fa-stack:hover .fa-stack-2x{
-    color: white;
-}
-.fa-stack:hover .fa-stack-1x{
-    color: black;
-}
-
-/* -- content -- */
-
-#home {
-    background-image: url('../images/background.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-}
+/* -- sections -- */
 
 .section {
     position: relative;
     height: 100vh;
 }
 
-#profile {
-    background-color: white;
+.flex-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    width: 100%;
+    height: auto;
+    margin: 5px 0;
+    justify-content: space-around;
 }
 
-#projects {
-    background-color: white;
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .flex-list {
+        flex-direction: row;
+    }
+}
+
+.link-item {
+    display: inline;
+    box-sizing: border-box;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    margin: 2px 0;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .link-item {
+        margin: 0;
+    }
+}
+
+/* -- home -- */
+#home.section {
+    background-image: url('../images/background-small.svg');
+    background-repeat: no-repeat;
+    background-size: 100vh 100vh;
+    background-attachment: fixed;
+    text-align: center;
+    overflow: hidden;
+    transition: all 0.3s ease 0s;
+}
+
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    #home.section { 
+        background-image: url('../images/background-large.svg');
+        background-size: 100% 100%;
+    }
+}
+
+#navbar-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 20px;
+    width: auto;
+    cursor: pointer;
+    z-index: 999;
+}
+
+#title-home {
+    transition: ease .75s;
+}
+
+#section-links {
+    z-index: 999;
+    position: absolute; /* Cannot use position fixed inside transform, e.g. perspective. Cannot use position: sticky with overflow: hidden.*/
+    transition: ease .75s;
+    height: 100vh;
+    margin: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    #section-links {
+        height: auto;
+        right: 0;
+        bottom: 0;
+        width: 30%;
+        margin: 10px;
+    }
+    #navbar-toggle {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1299px) and (min-width: 768px) {
+    #section-links {
+        bottom: 50%;
+        transform: translateY(50%);
+        align-items: flex-end;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    /* For mobile: */
+    #section-links {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #section-links.hidden-mobile {
+        transform: translate(-50%, -100%);
+    }
+
+    #title-home.hidden-mobile {
+        top: 100%;
+        transform: translateX(-50%);
+    }
+}
+
+/* -- projects -- */
+#projects.section {
     padding: 0% 5%;
     height: auto;
-    min-height: 100vh;
-    overflow: hidden; /* establishes new block formatting context, that makes height: auto; work (via float containement, else it sees no children) */
 }
 
 .project {
     --x-margin: 0.5%;
     --y-margin: 2vh;
     float: left;
+    font-size: 12px;
     box-sizing: border-box; /* include padding and border in size, doesn't include margin */
     margin: var(--y-margin) var(--x-margin);
-    width: calc(100%/4 - 2*var(--x-margin));
+    width: calc(100%/2 - 2*var(--x-margin));
     height: calc(50vh - 2*var(--y-margin));
     font-family: 'Roboto', sans-serif;
 }
-@media (max-width: 900px) {
-    .project {
-        width: calc(100%/3 - 2*var(--x-margin));
+
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .project { font-size: 16px; }
+}
+
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .project { 
+        width: calc(100%/4 - 2*var(--x-margin));
+        font-size: 20px;
     }
 }
-@media (max-width: 550px) {
-    .project {
-        width: calc(100%/2 - 2*var(--x-margin));
-    }
-}
-@media (max-width: 400px) {
-    .project {
-        width: calc(100% - 2*var(--x-margin));
-    }
-}
+
 
 .project-button { /* see https://codepen.io/seme332/pen/reJOwo */
     color: #000;
@@ -153,7 +224,7 @@ body {
 }
   
 .project-button:hover {
-    background-color: rgba(50, 225, 175, 0.75); /* /#2EE59D */
+    background-color: rgba(50, 225, 175, 0.75);
     box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
     color: #fff;
     transform: translateY(-7px);
@@ -166,35 +237,29 @@ body {
     width: 100%;
 }
 
-#contactme {
-    height: 20vh;
+/* -- contact -- */
+#contactme.section {
+    height: auto;
 }
 
 #title-contactme{
     left: 15%;
-    top: 50%
-}
-
-.contactme-buttons {
-    position: absolute;
-    display: flex;
-    justify-content: space-around;
-    left: 40%;
-    top: 50%;
-    width: 50%;
-    transform: translate(0%, -50%);
-}
-
-.contactme-button {
-    display: inline;
-    box-sizing: border-box;
     text-decoration: none;
     color: black;
-    font-family: 'Roboto', sans-serif;
-    font-size: 30px;
-    border: 2px solid transparent;
 }
 
-.contactme-button:hover {
-    border-bottom: 2px solid black;
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    #contactme.section {
+        height: 20vh;
+    }
+
+    #contactme-links {
+        position: absolute;
+        right: 10%;
+        top: 50%;
+        width: 50%;
+        min-width: 500px;
+        transform: translateY(-50%);
+    }
 }
